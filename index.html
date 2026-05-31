@@ -217,16 +217,18 @@ function ThinkingAnimation({ query }) {
 }
 
 // ── MESSAGE ───────────────────────────────────────────────────────────────────
-function Message({ role, content, thinking, searchQuery }) {
-  const isUser = role === 'user';
-  const fmt = t => (t||'')
-    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#c89b3c">$1</strong>')
-    .replace(/`([^`]+)`/g, '<code style="background:#21262d;padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#c89b3c">$1</code>')
-    .replace(/
-
-/g,'<br/><br/>')
-    .replace(/
-/g,'<br/>');
+function Message({ isUser, content, thinking, searchQuery }) {
+  const fmt = txt => {
+    if (!txt) return '';
+    return txt
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#c89b3c">$1</strong>')
+      .replace(/`([^`]+)`/g, '<code style="background:#21262d;padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#c89b3c">$1</code>')
+      .replace(/\n\n/g, '<br/><br/>') // Ersetzt doppelte Absätze sauber
+      .replace(/\n/g, '<br/>');       // Ersetzt einfache Zeilenumbrüche sauber
+  };
 
   return (
     <div className="msg-enter" style={{
