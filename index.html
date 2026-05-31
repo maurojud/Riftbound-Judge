@@ -299,8 +299,8 @@ function App() {
         },
         body:JSON.stringify({
           // HIER DAS REALE MODELL EINTRAGEN:
-          model:'claude-3-5-sonnet-20241022',
-          max_tokens:1024,
+          model:'claude-opus-4-8',
+          max_tokens:600,
           system:buildSystemPrompt(),
           tools,
           messages:m
